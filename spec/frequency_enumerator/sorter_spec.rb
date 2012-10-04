@@ -45,28 +45,16 @@ describe FrequencyEnumerator::Sorter do
     end
   end
 
-  describe '#availability_hash' do
-    it 'returns a hash with the same keys and values set to the bit count' do
-      klass.new.availability_hash(:a => 1, :b => 2).should == {
-        :a => 6, :b => 6
-      }
-
-      klass.new(:bit_count => 3).availability_hash(:a => 1, :b => 2, :c => 3).should == {
-        :a => 3, :b => 3, :c => 3
-      }
-    end
-  end
-
 end
 
 describe FrequencyEnumerator::Sorter::AccumulationHelper do
 
-  let(:klass) { subject.class }
+  let(:klass) { FrequencyEnumerator::Sorter::AccumulationHelper }
 
   describe '#maximal_key' do
-    it 'returns the key for the pair with the maximum value off the accumulation' do
-      subject.stub(:accumulation).and_return(:a => 0.1, :b => 0.5, :c => 0.4)
-      subject.maximal_key.should == :b
+    it 'returns the key for the pair with the maximum value of the accumulation' do
+      instance = klass.new(:a => 0.1, :b => 0.5, :c => 0.4)
+      instance.maximal_key.should == :b
     end
   end
 
@@ -110,6 +98,18 @@ describe FrequencyEnumerator::Sorter::AccumulationHelper do
 
       5.times { instance.accumulate(:b) }
       instance.accumulation[:b].should == 0.75 ** 6
+    end
+  end
+
+  describe '#available_keys' do
+    it 'returns a hash with the same keys and values set to the bit count' do
+      klass.new(:a => 1, :b => 2).available_keys.should == {
+        :a => 6, :b => 6
+      }
+
+      klass.new({:a => 1, :b => 2, :c => 3}, 3).available_keys.should == {
+        :a => 3, :b => 3, :c => 3
+      }
     end
   end
 

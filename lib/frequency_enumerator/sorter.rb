@@ -11,45 +11,57 @@ class FrequencyEnumerator::Sorter
   end
 
   def sort(frequencies)
-    helper = AccumulationHelper.new(frequencies)
-    remaining = availability_hash(frequencies)
+    helper = AccumulationHelper.new(frequencies, bit_count)
     sorted_array = []
 
-    until remaining.empty? do
+    until helper.depleted_keys? do
       key = helper.maximal_key
       sorted_array << key
-
       helper.accumulate(key)
-      consume(key, remaining, helper)
     end
 
     sorted_array
   end
 
-  def availability_hash(frequencies)
-    frequencies.inject({}) do |hash, (k, _)|
-      hash.merge(k => bit_count)
+  class AccumulationHelper
+
+    attr_reader :frequencies, :bit_count
+
+    def initialize(frequencies, bit_count = 6)
+      @frequencies = frequencies
+      @bit_count = bit_count
     end
-  end
 
-  def consume(key, remaining, helper)
-    remaining[key] -= 1
-
-    if remaining[key].zero?
-      remaining.delete(key)
-      helper.accumulation.delete(key)
+    def depleted_keys?
+      available_keys.empty?
     end
-  end
-
-  private
-  def fe
-    FrequencyEnumerator
-  end
-
-  class AccumulationHelper < Struct.new(:frequencies)
 
     def maximal_key
       accumulation.max_by { |_, v| v }.first
+    end
+
+    def accumulate(key)
+      accumulation[key] *= probabilities[key]
+      consume(key)
+    end
+
+    def available_keys
+      @available_keys ||= frequencies.inject({}) do |hash, (k, _)|
+        hash.merge(k => bit_count)
+      end
+    end
+
+    def accumulation
+      @accumulation ||= probabilities.dup
+    end
+
+    def consume(key)
+      available_keys[key] -= 1
+
+      if available_keys[key].zero?
+        available_keys.delete(key)
+        accumulation.delete(key)
+      end
     end
 
     def probabilities
@@ -58,14 +70,6 @@ class FrequencyEnumerator::Sorter
       @probabilities = frequencies.inject({}) do |hash, (k, v)|
         hash.merge(k => v.to_f / total)
       end
-    end
-
-    def accumulation
-      @accumulation ||= probabilities.dup
-    end
-
-    def accumulate(key)
-      accumulation[key] *= probabilities[key]
     end
 
   end
