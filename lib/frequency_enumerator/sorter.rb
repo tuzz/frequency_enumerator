@@ -12,15 +12,15 @@ class FrequencyEnumerator::Sorter
 
   def sort(frequencies)
     helper = AccumulationHelper.new(frequencies, bit_count)
-    sorted_array = []
+    sorted_keys = []
 
     until helper.depleted_keys? do
       key = helper.maximal_key
-      sorted_array << key
+      sorted_keys << key
       helper.accumulate(key)
     end
 
-    sorted_array
+    sorted_keys
   end
 
   class AccumulationHelper
