@@ -39,7 +39,7 @@ describe FrequencyEnumerator::Sorter do
 
 end
 
-describe FrequencyEnumerator::Sorter::Helper do
+describe FrequencyEnumerator::Sorter::AccumulationHelper do
 
   let(:klass) { subject.class }
 

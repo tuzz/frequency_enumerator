@@ -1,7 +1,11 @@
 class FrequencyEnumerator::Sorter
 
-  def initialize
+  attr_reader :bit_count, :composer, :decomposer
 
+  def initialize(bit_count = 6, composer = fe::Composer, decomposer = fe::Decomposer)
+    @bit_count  = bit_count
+    @composer   = composer.new(bit_count)
+    @Decomposer = decomposer.new(bit_count)
   end
 
   def self.sort(frequencies)
@@ -9,14 +13,15 @@ class FrequencyEnumerator::Sorter
   end
 
   def sort(frequencies)
-    Helper.new(frequencies).help
+    helper = AccumulationHelper.new(frequencies)
   end
 
-  class Helper < Struct.new(:frequencies)
+  private
+  def fe
+    FrequencyEnumerator
+  end
 
-    def help
-
-    end
+  class AccumulationHelper < Struct.new(:frequencies)
 
     def maximal_key
       accumulation.max_by { |_, v| v }.first
