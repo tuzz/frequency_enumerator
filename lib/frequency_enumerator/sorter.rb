@@ -18,6 +18,10 @@ class FrequencyEnumerator::Sorter
 
     end
 
+    def maximal_key
+      accumulation.max_by { |_, v| v }.first
+    end
+
     def probabilities
       return @probabilities if @probabilities
       total = frequencies.values.inject(:+)

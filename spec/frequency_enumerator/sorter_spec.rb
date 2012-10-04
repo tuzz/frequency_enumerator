@@ -43,6 +43,13 @@ describe FrequencyEnumerator::Sorter::Helper do
 
   let(:klass) { subject.class }
 
+  describe '#maximal_key' do
+    it 'returns the key for the pair with the maximum value off the accumulation' do
+      subject.stub(:accumulation).and_return(:a => 0.1, :b => 0.5, :c => 0.4)
+      subject.maximal_key.should == :b
+    end
+  end
+
   describe '#probabilities' do
     it 'returns a hash of probabilities for the given frequencies' do
       klass.new(:a => 2, :b => 4, :c => 1, :d => 3).probabilities.should == {
