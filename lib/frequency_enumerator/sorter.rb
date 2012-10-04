@@ -14,6 +14,33 @@ class FrequencyEnumerator::Sorter
 
   def sort(frequencies)
     helper = AccumulationHelper.new(frequencies)
+    remaining = availability_hash(frequencies)
+    sorted_array = []
+
+    until remaining.empty? do
+      key = helper.maximal_key
+      sorted_array << key
+
+      helper.accumulate(key)
+      consume(key, remaining, helper)
+    end
+
+    sorted_array
+  end
+
+  def availability_hash(frequencies)
+    frequencies.inject({}) do |hash, (k, _)|
+      hash.merge(k => bit_count)
+    end
+  end
+
+  def consume(key, remaining, helper)
+    remaining[key] -= 1
+
+    if remaining[key].zero?
+      remaining.delete(key)
+      helper.accumulation.delete(key)
+    end
   end
 
   private
