@@ -9,6 +9,30 @@ class FrequencyEnumerator::Sorter
   end
 
   def sort(frequencies)
+    Helper.new(frequencies).help
+  end
+
+  class Helper < Struct.new(:frequencies)
+
+    def help
+
+    end
+
+    def probabilities
+      return @probabilities if @probabilities
+      total = frequencies.values.inject(:+)
+      @probabilities = frequencies.inject({}) do |hash, (k, v)|
+        hash.merge(k => v.to_f / total)
+      end
+    end
+
+    def accumulation
+      @accumulation ||= probabilities.dup
+    end
+
+    def accumulate(key)
+      accumulation[key] *= probabilities[key]
+    end
 
   end
 
