@@ -25,7 +25,7 @@ describe FrequencyEnumerator::Decomposer do
     big_endian = klass.new(:endianness => :big)
 
     little_endian.decompose(3).should == [1, 1, 0, 0, 0, 0]
-    big_endian.decompose(3).should    == [0, 0, 0, 0, 1, 1]
+    big_endian.decompose(3).should == [0, 0, 0, 0, 1, 1]
   end
 
   it 'raises an exception on signed integers' do
@@ -43,6 +43,13 @@ describe FrequencyEnumerator::Decomposer do
     expect {
       instance.decompose(4)
     }.to raise_error(OverflowError, 'Decomposing 4 requires more than 2 bits.')
+  end
+
+  it 'is pure' do
+    integer = 5.freeze
+    expect { klass.decompose(integer) }.to_not raise_error
+
+    klass.decompose(integer).should == klass.decompose(integer)
   end
 
 end

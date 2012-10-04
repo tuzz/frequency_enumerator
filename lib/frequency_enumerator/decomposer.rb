@@ -7,7 +7,7 @@ class FrequencyEnumerator::Decomposer
   attr_reader :endianness
 
   def initialize(params = {})
-    @bit_count  = params[:bit_count] || 6
+    @bit_count  = params[:bit_count]  || 6
     @endianness = params[:endianness] || :little
   end
 
