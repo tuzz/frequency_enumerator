@@ -51,7 +51,7 @@ describe FrequencyEnumerator::Sorter do
         :a => 6, :b => 6
       }
 
-      klass.new(3).availability_hash(:a => 1, :b => 2, :c => 3).should == {
+      klass.new(:bit_count => 3).availability_hash(:a => 1, :b => 2, :c => 3).should == {
         :a => 3, :b => 3, :c => 3
       }
     end

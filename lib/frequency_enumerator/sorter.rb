@@ -1,11 +1,9 @@
 class FrequencyEnumerator::Sorter
 
-  attr_reader :bit_count, :composer, :decomposer
+  attr_reader :bit_count
 
-  def initialize(bit_count = 6, composer = fe::Composer, decomposer = fe::Decomposer)
-    @bit_count  = bit_count
-    @composer   = composer.new(bit_count)
-    @Decomposer = decomposer.new(bit_count)
+  def initialize(params = {})
+    @bit_count = params[:bit_count] || 6
   end
 
   def self.sort(frequencies)
