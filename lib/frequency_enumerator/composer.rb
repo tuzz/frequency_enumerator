@@ -1,0 +1,3 @@
+class FrequencyEnumerator::Composer
+
+end
