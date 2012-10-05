@@ -26,7 +26,7 @@ You might discover, that in fact, almost no one drinks tea and everyone loves bi
 { :tea => 25, :coffee => 60, :biscuit => 115 }
 ```
 
-It'd be nice if we could brute-force the problem, but be more intelligent about the order in which we do so. We should use make use of our valuable, newfound knowledge.
+It'd be nice if we could brute-force the problem, but be more intelligent about the order in which we do so. We should make use of our valuable, newfound knowledge.
 
 And that's exactly what Frequency Enumerator does. (I got there in the end!)
 
@@ -50,7 +50,7 @@ end
 The first 10 attempts yielded to the block are:
 
 ```ruby
-{ :tea => 1, :coffee => 1, :biscuit => 1 }
+{ :tea => 0, :coffee => 0, :biscuit => 0 }
 { :tea => 0, :coffee => 0, :biscuit => 1 }
 { :tea => 0, :coffee => 0, :biscuit => 2 }
 { :tea => 0, :coffee => 0, :biscuit => 3 }
@@ -62,7 +62,7 @@ The first 10 attempts yielded to the block are:
 { :tea => 0, :coffee => 0, :biscuit => 5 }
 ```
 
-As you can see, most of attempts change the number of biscuits, whilst we haven't even explored the possibility that tea might be in the solution yet.
+As you can see, most of the attempts change the number of biscuits, whilst we haven't even explored the possibility that tea might be in the solution yet.
 
 ## Limit
 
