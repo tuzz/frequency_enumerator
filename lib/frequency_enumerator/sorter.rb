@@ -3,7 +3,7 @@ class FrequencyEnumerator::Sorter
   attr_reader :bit_count
 
   def initialize(params = {})
-    @bit_count = params[:bit_count] || 6
+    @bit_count = params[:bit_count] || 8
   end
 
   def self.sort(frequencies)
