@@ -8,11 +8,11 @@ If you're using brute-force search to solve some problem, it makes sense to carr
 
 Consider a simple example of trying to figure out which combinations of items cost a known total:
 
-```
 Total: £2.00
 
-Item prices: Tea (£0.20), Coffee (£0.30), Biscuit (£0.15)
-```
+* Tea: £0.20
+* Coffee: £0.30
+* Biscuit: £0.15
 
 We could use *maths* to solve this problem. Or we could brute-force it.
 
@@ -50,21 +50,21 @@ end
 The first 10 attempts yielded to the block are:
 
 ```ruby
-{ :tea=>0, :coffee=>0, :biscuit=>0 }
-{ :tea=>0, :coffee=>0, :biscuit=>1 }
-{ :tea=>0, :coffee=>0, :biscuit=>2 }
-{ :tea=>0, :coffee=>0, :biscuit=>3 }
-{ :tea=>0, :coffee=>1, :biscuit=>0 }
-{ :tea=>0, :coffee=>1, :biscuit=>1 }
-{ :tea=>0, :coffee=>1, :biscuit=>2 }
-{ :tea=>0, :coffee=>1, :biscuit=>3 }
-{ :tea=>0, :coffee=>0, :biscuit=>4 }
-{ :tea=>0, :coffee=>0, :biscuit=>5 }
+{ :tea => 1, :coffee => 1, :biscuit => 1 }
+{ :tea => 0, :coffee => 0, :biscuit => 1 }
+{ :tea => 0, :coffee => 0, :biscuit => 2 }
+{ :tea => 0, :coffee => 0, :biscuit => 3 }
+{ :tea => 0, :coffee => 1, :biscuit => 0 }
+{ :tea => 0, :coffee => 1, :biscuit => 1 }
+{ :tea => 0, :coffee => 1, :biscuit => 2 }
+{ :tea => 0, :coffee => 1, :biscuit => 3 }
+{ :tea => 0, :coffee => 0, :biscuit => 4 }
+{ :tea => 0, :coffee => 0, :biscuit => 5 }
 ```
 
 As you can see, most of attempts change the number of biscuits, whilst we haven't even explored the possibility that tea might be in the solution yet.
 
-# Limit
+## Limit
 
 All attempts are guaranteed to be unique and appear in a deterministic order. The 'limit' method calculates the number of unique enumerations for the search space (zero-offset).
 
@@ -90,6 +90,14 @@ This might be useful for multi-threading, map-reduce, or carrying on from where 
 My motivation for building this gem is to more intelligently brute-force the problem of finding [self-enumerating pangrams](http://en.wikipedia.org/wiki/Pangram#Self-enumerating_pangrams) by using classical literature to build a frequency distribution of English text.
 
 In theory, mutating the E's, T's, A's, O's and I's first should result in attempts that correlate with English text and therefore are more likely to be solutions.
+
+## Improvements
+
+There's plenty of scope for improvement:
+
+* It'd be nice if you could specify offsets for each variate, or ranges.
+* Specifying a bit count is a bit rubbish and depends on the implementation too much.
+* Optimisations. Currently ticking over at about 8,000 attempts/s.
 
 ## Contribution
 
