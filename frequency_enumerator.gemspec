@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'frequency_enumerator'
-  s.version     = '1.0.0'
+  s.version     = '1.0.1'
   s.summary     = 'Frequency Enumerator'
   s.description = 'Yields hashes that correlate with the given frequency distribution.'
   s.author      = 'Christopher Patuzzo'
