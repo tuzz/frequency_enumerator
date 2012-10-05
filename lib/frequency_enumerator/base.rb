@@ -26,6 +26,10 @@ class FrequencyEnumerator < Enumerable::Enumerator
     self
   end
 
+  def limit
+    @limit ||= (2 ** bit_count) ** frequencies.size - 1
+  end
+
   private
   def decomposer
     @decomposer.new(:bit_count => @bit_count * frequencies.size)
@@ -58,10 +62,6 @@ class FrequencyEnumerator < Enumerable::Enumerator
         "#{i} lies outside of the range of the function: (0..#{limit})."
       ) if out_of_range?(i)
     end
-  end
-
-  def limit
-    @limit ||= (2 ** bit_count) ** frequencies.size - 1
   end
 
   def out_of_range?(x)
