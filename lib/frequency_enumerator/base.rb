@@ -8,6 +8,7 @@ class FrequencyEnumerator < Enumerable::Enumerator
     @bit_count  = params[:bit_count]  || 6
     @from       = params[:from]       || 0
     @to         = params[:to]         || limit
+    @offset     = params[:offset]     || 0
 
     raise_if_either_boundary_is_out_of_range
 
@@ -20,7 +21,8 @@ class FrequencyEnumerator < Enumerable::Enumerator
     (from..to).each do |i|
       binary = decomposer.decompose(i)
       bitmap = fragmented_bitmap(binary)
-      yield composition(bitmap)
+      result = composition(bitmap)
+      yield offset(result)
     end
 
     self
@@ -47,6 +49,12 @@ class FrequencyEnumerator < Enumerable::Enumerator
   def composition(bitmap)
     bitmap.inject({}) do |h, (key, fragment)|
       h.merge(key => @composer.compose(fragment))
+    end
+  end
+
+  def offset(result)
+    result.inject({}) do |h, (k, v)|
+      h.merge(k => (v + @offset))
     end
   end
 

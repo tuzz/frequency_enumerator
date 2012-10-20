@@ -85,6 +85,13 @@ You can set 'from' and 'to' to explore different portions of the search space:
 
 This might be useful for multi-threading, map-reduce, or carrying on from where you left off if you're exploring a large search space.
 
+You can specify an offset that affects all frequencies:
+
+```ruby
+  FrequencyEnumerator.new(distribution, :offset => 3).first
+  #=> { 'a' => 3, 'b' => 3 }
+```
+
 ## Real-world example
 
 My motivation for building this gem is to more intelligently brute-force the problem of finding [self-enumerating pangrams](http://en.wikipedia.org/wiki/Pangram#Self-enumerating_pangrams) by using classical literature to build a frequency distribution of English text.
