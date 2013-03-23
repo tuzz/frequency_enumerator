@@ -18,7 +18,7 @@ We could use *maths* to solve this problem. Or we could brute-force it.
 
 For the latter, you'd go through every combination of these items and see which totalled £2.00. In this example, that'd take no time at all, but what if we're dealing with huge sums of money, or there are dozens of items? What if we're brute-forcing passwords?
 
-It helps to do some [frequency analysis](https://github.com/cpatuzzo/frequency_analyser) first.
+It helps to do some [frequency analysis](https://github.com/tuzz/frequency_analyser) first.
 
 You might discover, that in fact, almost no one drinks tea and everyone loves biscuits. You might ask a couple of hundred people and end up with a frequency distribution like this:
 
