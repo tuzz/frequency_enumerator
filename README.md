@@ -105,11 +105,3 @@ There's plenty of scope for improvement:
 * It'd be nice if you could specify offsets for each variate, or ranges.
 * Specifying a bit count is a bit rubbish and depends on the implementation too much.
 * Optimisations. Currently ticking over at about 8,000 attempts/s.
-
-## Contribution
-
-Feel free to contribute. No commit is too small.
-
-If you're good at optimisation, this project might be for you.
-
-You should follow me: [@cpatuzzo](https://twitter.com/cpatuzzo)
